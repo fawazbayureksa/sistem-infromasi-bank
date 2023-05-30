@@ -1,42 +1,14 @@
-<style>
-    /* Style for the dropdown trigger */
-    .dropdown a.dropdown-toggle {
-        display: flex;
-        align-items: center;
-        color: white;
-        text-decoration: none;
-    }
-
-    /* Style for the dropdown menu */
-    .dropdown-menu {
-        background-color: #343a40;
-        /* Set the background color of the dropdown menu */
-        color: white;
-        /* Set the text color of the dropdown menu */
-    }
-
-    /* Style for the dropdown menu items */
-    .dropdown-menu .dropdown-item {
-        color: white;
-    }
-
-    /* Style for the dropdown menu divider */
-    .dropdown-menu .dropdown-divider {
-        border-color: white;
-    }
-</style>
-
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-primary">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <img src="./../styles/images/logo.png" class="img-responsive" alt="" />
                 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-4 d-none d-sm-inline text-center">BANK BMH Makassar</span>
+                    <img src="./styles/images/logo.png" width="auto" height="80px" alt="" />
+                    <!-- <span class="fs-4 d-none d-sm-inline text-center">BANK BMH Makassar</span> -->
                 </a>
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0 ">
+                        <a href="index.php?Page=dashboard" class="nav-link align-middle px-0 ">
                             <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white">Home</span>
                         </a>
                     </li>
@@ -53,8 +25,16 @@
                         </ul>
                     </li> -->
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle">
+                        <a href="index.php?Page=customer-profil" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Informasi Profil</span></a>
+                    </li>
+                    <li>
+                        <a href="index.php?Page=customers" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Daftar Nasabah</span></a>
+                    </li>
+                    <li>
+                        <a href="welcome_page.php" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Logout</span></a>
                     </li>
                     <!-- <li>
                         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">

@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +29,8 @@
                             <div class="col-md-10">
                                 <form method="post">
                                     <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="text" name="user" class="form-control" autocomplete="off">
+                                        <label>email</label>
+                                        <input type="email" name="user" class="form-control" autocomplete="off">
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
@@ -48,3 +53,24 @@
 <script src="styles/js/bootstrap.min.js"></script>
 
 </html>
+
+<?php
+
+include 'koneksi.php';
+
+if (isset($_POST['login'])) {
+    $query = mysqli_query($db, "SELECT * FROM users WHERE email='$_POST[user]' and password='$_POST[pass]'");
+    $cek = mysqli_num_rows($query);
+
+    if ($cek == 1) {
+
+        $_SESSION['admin'] = mysqli_fetch_assoc($query);
+
+        echo "<script>alert('Login Berhasil');</script>";
+        echo "<script>location='index.php?Page=dashboard'</script>";
+    } else {
+        echo  "<script>alert('Login Gagal , Masukkan Data Yang Benar!!!');</script>";
+        echo "<meta http.equiv='refresh' content='1;url=login.php'>";
+    }
+}
+?>

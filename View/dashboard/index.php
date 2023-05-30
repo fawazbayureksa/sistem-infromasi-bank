@@ -1,3 +1,9 @@
+<?php
+session_start();
+// print_r($_SESSION);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +26,8 @@
                 include 'home.php';
             } elseif ($_GET['Page'] == "customers") {
                 include './View/customer/index.php';
+            } elseif ($_GET['Page'] == "customer-profil") {
+                include './View/customer/profil.php';
             }
         }
         // print_r($_GET['Page']);

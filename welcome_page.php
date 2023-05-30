@@ -24,7 +24,8 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
         <div class="container px-5">
-            <a class="navbar-brand fw-bold" href="welcome_page.php">BANK BMH (Baitul Maal Hidayatullah) Makassar</a>
+            <img src="./styles/images/logo.png" width="auto" height="50px" />
+            <!-- <a class="navbar-brand fw-bold" href="welcome_page.php">BANK BMH</a> -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="bi-list"></i>
@@ -55,6 +56,7 @@
         <div class="container px-5">
             <div class="row gx-5 align-items-center">
                 <div class="col-lg-6 col-md-12 col-sm-12">
+                    <!-- <img src="./styles/images/logo.png" width="auto" height="300px" /> -->
                     <div class="mb-5 mb-lg-0 text-center text-lg-start">
                         <h5 class="fs-1 lh-1 mb-3">BANK BMH (Baitul Maal Hidayatullah) Makassar</h5>
                         <p class="lead fw-normal text-muted mb-5">
