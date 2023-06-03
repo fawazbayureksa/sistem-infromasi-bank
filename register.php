@@ -17,9 +17,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- <link href="assets/css/sb-admin-2.min.css" rel="stylesheet"> -->
     <link href="styles/styles.css" rel="stylesheet" />
-    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
 </head>
 
 <body id="page-top">
@@ -110,11 +110,12 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Jenis Tabungan</label>
-                                        <select class="form-control" name="type_of_savings">
+                                        <select class="form-control" name="type_of_savings" id="mySelect">
                                             <option value="">--Pilih--</option>
                                             <option value="0">Tabungan Biasa</option>
-                                            <option value="1">Deposito</option>
+                                            <option value="1">Deposito (0,8% / Bulan)</option>
                                         </select>
+                                        <div style="font-size: 12px;color:red;" id="selectedText"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -161,12 +162,32 @@ if (isset($_POST['submit'])) {
     $id = $randomNumber;
 
 
-    mysqli_query($db, "INSERT INTO customers(id,nik,full_name,phone_number, mother_name,gender,age,jobs,initial_deposit,type_of_savings,address) VALUES ('$id','$nik','$nama','$phone_number','$mother_name','$jenis_kelamin','$umur','$jobs','$initial_deposit','$type_of_savings','$alamat')");
+    mysqli_query($db, "INSERT INTO customers(id,nik,full_name,phone_number, mother_name,gender,age,jobs,initial_deposit,type_of_savings,address,is_verified) VALUES ('$id','$nik','$nama','$phone_number','$mother_name','$jenis_kelamin','$umur','$jobs','$initial_deposit','$type_of_savings','$alamat',0)");
 
 
-    echo "<script>alert('Berhasil Mendaftar')</script>";
+    echo "<script>alert('Berhasil Mendaftar, Silahkan menunggu beberapa saat tim kami sedang melakukan verifikasi data anda')</script>";
     // echo "<script>location='index.php?Page=dashboard'</script>";
     echo "<script>location='login.php'</script>";
 }
 
 ?>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#mySelect').change(function() {
+            var selectedOption = $(this).val();
+            var textToShow = "";
+
+            if (selectedOption === "0") {
+                textToShow = "Bonus Tabungan Sebesar 2,5% Per Bulan (Jika tidak ada penarikan selama 10 Hari";
+                // console.log(textToShow);
+            } else if (selectedOption === "1") {
+                console.log(textToShow);
+                textToShow = "Deposito Bagi Hasil 0,8% Per bulan";
+            }
+            $('#selectedText').text(textToShow);
+        });
+    });
+</script>

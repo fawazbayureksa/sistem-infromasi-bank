@@ -1,3 +1,7 @@
+<?php
+print_r($_SESSION['admin']);
+?>
+
 <div class="container-fluid">
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-primary">
@@ -24,13 +28,27 @@
                             </li>
                         </ul>
                     </li> -->
-                    <li>
-                        <a href="index.php?Page=customer-profil" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Informasi Profil</span></a>
-                    </li>
+                    <?php if ($_SESSION['admin']['is_type'] != 0) { ?>
+                        <li>
+                            <a href="index.php?Page=customer-profil" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Informasi Profil</span></a>
+                        </li>
+                    <?php } ?>
                     <li>
                         <a href="index.php?Page=customers" class="nav-link px-0 align-middle">
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Daftar Nasabah</span></a>
+                    </li>
+                    <?php if ($_SESSION['admin']['is_type'] != 0) { ?>
+
+                        <li>
+                            <a href="index.php?Page=transaction" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Transaksi</span></a>
+                        </li>
+                    <?php } ?>
+
+                    <li>
+                        <a href="index.php?Page=report-transaction" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Laporan Transaksi</span></a>
                     </li>
                     <li>
                         <a href="welcome_page.php" class="nav-link px-0 align-middle">
@@ -54,7 +72,7 @@
                     </li> -->
                 </ul>
                 <hr>
-                <div class="dropdown pb-4">
+                <!-- <div class="dropdown pb-4">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
                         <span class="d-none d-sm-inline mx-1">loser</span>
@@ -68,6 +86,8 @@
                         </li>
                         <li><a class="dropdown-item" href="#">Sign out</a></li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

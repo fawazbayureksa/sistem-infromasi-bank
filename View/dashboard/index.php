@@ -28,14 +28,22 @@ session_start();
                 include './View/customer/index.php';
             } elseif ($_GET['Page'] == "customer-profil") {
                 include './View/customer/profil.php';
+            } elseif ($_GET['Page'] == "customer-profil-delete") {
+                include './View/customer/delete.php';
+            } elseif ($_GET['Page'] == "transaction") {
+                include './View/transaction/transaction.php';
+            } elseif ($_GET['Page'] == "report-transaction") {
+                include './View/transaction/index.php';
             }
         }
         // print_r($_GET['Page']);
+
         ?>
     </div>
     </div>
     </div>
 
 </body>
+
 
 </html>

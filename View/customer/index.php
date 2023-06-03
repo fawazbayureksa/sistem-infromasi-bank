@@ -1,3 +1,8 @@
+<?php
+include './koneksi.php';
+
+?>
+
 <div class="">
     <h3 class="">
         Daftar Nasabah
@@ -9,21 +14,29 @@
                 <th>NIK</th>
                 <th>Nama</th>
                 <th>No Rekening</th>
+                <th>Verifikasi</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="table-active">
-                <td>1</td>
-                <td>78433984730984</td>
-                <td>Fawwaz Bayureksa</td>
-                <td>12314536475</td>
-                <td width="20%">
-                    <button type="button" class="btn btn-danger btn-xs">Delete</button>
-                    <button type="button" class="btn btn-warning btn-xs">Edit</button>
-                    <button type="button" class="btn btn-success btn-xs">Lihat</button>
-                </td>
-            </tr>
+            <?php
+            $no = 1;
+            $query = mysqli_query($db, "SELECT * FROM customers");
+            while ($data = mysqli_fetch_assoc($query)) {
+            ?>
+                <tr class="">
+                    <td><?= $no++ ?></td>
+                    <td><?= $data["nik"] ?></td>
+                    <td><?= $data["full_name"] ?></td>
+                    <td><?= $data["account_number"] ?></td>
+                    <td><?= $data['is_verified'] == 1 ? 'Verified' : 'Belum diverifikasi' ?></td>
+                    <td width="20%">
+                        <a href="?Page=customer-profil-delete&id=<?= $data['id'] ?>" class="btn btn-danger btn-xs">Delete</a>
+                        <a href="?Page=customer-profil&id=<?= $data['id'] ?>" class="btn btn-warning btn-xs">Edit</a>
+                        <a href="?Page=customer-profil&id=<?= $data['id'] ?>" class="btn btn-success btn-xs">Lihat</a>
+                    </td>
+                </tr>
+            <?php } ?>
         </tbody>
     </table>
 

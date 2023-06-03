@@ -2,9 +2,17 @@
 
 include './koneksi.php';
 
-$ids = $_SESSION['admin']['id'];
 
-$query = "SELECT * FROM customers WHERE id ='$ids'";
+$ids = $_SESSION['admin']['id'];
+$id = isset($_GET['id']) ? $_GET['id'] : null;
+
+$query = '';
+
+if (isset($id)) {
+    $query = "SELECT * FROM customers WHERE id ='$id'";
+} else {
+    $query = "SELECT * FROM customers WHERE id ='$ids'";
+}
 
 $data = mysqli_query($db, $query);
 
@@ -22,6 +30,11 @@ $datas = mysqli_fetch_assoc($data);
                     <form method="POST">
                         <div class="row">
                             <h4 class="">Profil <?= $datas['full_name'] ?></h4>
+                            <?php if ($datas['is_verified'] == 1) {
+                                echo '<span class="text-success">Verified</span>';
+                            } else {
+                                echo '<span class="text-danger">Not Verified</span>';
+                            } ?>
                             <div class="col-md-6">
                                 <div class="form-group mb-2">
                                     <label for="">NIK</label>
@@ -32,6 +45,12 @@ $datas = mysqli_fetch_assoc($data);
                                 <div class="form-group mb-2">
                                     <label for="">Nama</label>
                                     <input type="text" class="form-control" value="<?= $datas['full_name'] ?>" name="full_name" required />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="">No Rekening</label>
+                                    <input type="text" class="form-control" value="<?= $datas['account_number'] ?>" name="account_number" disabled />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -71,7 +90,13 @@ $datas = mysqli_fetch_assoc($data);
                             <div class="col-md-6">
                                 <div class="form-group mb-2">
                                     <label for="">Setoran Awal</label>
-                                    <input type="number" class="form-control" name="initial_deposit" value="<?= $datas['initial_deposit'] ?>">
+                                    <input type="number" class="form-control" name="initial_deposit" value="<?= $datas['initial_deposit'] ?>" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="">Saldo</label>
+                                    <input type="number" class="form-control" name="balance" value="<?= $datas['balance'] ?>" disabled>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -89,7 +114,7 @@ $datas = mysqli_fetch_assoc($data);
                                 <div class="col-md-6">
                                     <div class="form-group mb-2">
                                         <label for="">Bunga Deposito</label>
-                                        <input type="text" class="form-control" name="" value="5%" disabled>
+                                        <input type="text" class="form-control" name="" value="0,8% / Bulan" disabled>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -100,8 +125,13 @@ $datas = mysqli_fetch_assoc($data);
                                 </div>
                             </div>
 
-                            <div class="float-end mt-2">
+                            <div class="mt-2">
                                 <button class="btn btn-warning btn-md" name="submit">Edit</button>
+                                <?php if ($datas['is_verified'] == 0) { ?>
+                                    <button class="btn btn-success btn-md" name="verify">Verifikasi</button>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </form>
@@ -144,6 +174,28 @@ $datas = mysqli_fetch_assoc($data);
         echo "<script>alert('Berhasil di edit')</script>";
         echo "<script>location='?Page=customer-profil'</script>";
     }
+
+    function generateAccountNumber()
+    {
+        $prefix = "1122"; // Awalan nomor rekening
+        $randomDigits = rand(10000000, 99999999); // Menghasilkan angka acak antara 10 juta hingga 99 juta
+
+        $accountNumber = $prefix . $randomDigits;
+        return $accountNumber;
+    }
+
+    $number = generateAccountNumber();
+
+
+    if (isset($_POST['verify'])) {
+
+        mysqli_query($db, "UPDATE customers SET is_verified= 1, account_number='$number' WHERE id='$id'");
+
+        echo "<script>alert('Berhasil di Verfikasi')</script>";
+        echo "<script>location='?Page=customer-profil&id=$id'</script>";
+    }
+
+
 
 
     ?>
