@@ -49,7 +49,7 @@ $datas = mysqli_fetch_assoc($data);
                 </div>
                 <div class="form-group">
                     <label for="jumlahPenarikan">Saldo</label>
-                    <input type="number" class="form-control mb-3" id="" value=<?= $datas['balance'] ?> disabled>
+                    <input type="number" class="form-control mb-3" id="" value="Rp<?= number_format($datas['balance']) ?>" disabled>
                 </div>
             </div>
             <button type="submit" name="simpan" class="btn btn-primary">Kirim</button>

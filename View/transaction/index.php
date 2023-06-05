@@ -81,7 +81,7 @@ include './koneksi.php';
                     <td><?= $data['full_name'] ?></td>
                     <td><?= $data['account_number'] ?></td>
                     <td><?= $data['type_transaction'] == 0 ? 'Setoran Tunai' : 'Tarik Tunai' ?></td>
-                    <td><?= $data['withdrawal_amount'] ?></td>
+                    <td>Rp<?= number_format($data['withdrawal_amount']) ?></td>
                 </tr>
             <?php } ?>
         </tbody>

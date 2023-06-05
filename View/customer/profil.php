@@ -84,13 +84,13 @@ $datas = mysqli_fetch_assoc($data);
                             <div class="col-md-6">
                                 <div class="form-group mb-2">
                                     <label for="">Setoran Awal</label>
-                                    <input type="number" class="form-control" name="initial_deposit" value="<?= $datas['initial_deposit'] ?>" disabled>
+                                    <input type="text" class="form-control" name="initial_deposit" value="Rp<?= number_format($datas['initial_deposit']) ?>" disabled>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-2">
                                     <label for="">Saldo</label>
-                                    <input type="number" class="form-control" name="balance" value="<?= $datas['balance'] ?>" disabled>
+                                    <input type="text" class="form-control" name="balance" value="Rp<?= number_format($datas['balance']) ?>" disabled>
                                 </div>
                             </div>
                             <div class="col-md-6">
