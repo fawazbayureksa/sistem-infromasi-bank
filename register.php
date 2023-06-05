@@ -118,6 +118,25 @@
                                         <div style="font-size: 12px;color:red;" id="selectedText"></div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Email</label>
+                                        <input type="email" class="form-control" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Konfirmasi Password</label>
+                                        <input type="password" class="form-control" name="confirm_password" id="confirm_password">
+                                        <small class="text-danger" id="text_pass"></small>
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Alamat</label>
@@ -146,11 +165,14 @@
 include 'koneksi.php';
 
 $randomNumber = random_int(1, 10000);
+$randomId = random_int(1, 10000);
 
 if (isset($_POST['submit'])) {
 
     $nik = $_POST['nik'];
     $nama = $_POST['full_name'];
+    $email = $_POST['email'];
+    $password = sha1($_POST['confirm_password']);
     $phone_number = $_POST['phone_number'];
     $mother_name = $_POST['mother_name'];
     $jenis_kelamin = $_POST['jenis_kelamin'];
@@ -160,18 +182,30 @@ if (isset($_POST['submit'])) {
     $type_of_savings = $_POST['type_of_savings'];
     $alamat = $_POST['address'];
     $id = $randomNumber;
+    $idUser = $randomId;
 
-
-    mysqli_query($db, "INSERT INTO customers(id,nik,full_name,phone_number, mother_name,gender,age,jobs,initial_deposit,type_of_savings,address,is_verified) VALUES ('$id','$nik','$nama','$phone_number','$mother_name','$jenis_kelamin','$umur','$jobs','$initial_deposit','$type_of_savings','$alamat',0)");
-
+    mysqli_query($db, "INSERT INTO users(id,nik,name,email,password,is_type) VALUES ('$id','$nik','$nama','$email','$password',1)");
+    mysqli_query($db, "INSERT INTO customers(
+        id,
+        nik,
+        full_name,
+        phone_number,
+        mother_name,
+        gender,
+        age,
+        jobs,
+        initial_deposit,
+        type_of_savings,
+        address,
+        is_verified,
+        email,balance) 
+        VALUES ('$id','$nik','$nama','$phone_number','$mother_name','$jenis_kelamin','$umur','$jobs','$initial_deposit','$type_of_savings','$alamat',0,'$email','$initial_deposit')");
 
     echo "<script>alert('Berhasil Mendaftar, Silahkan menunggu beberapa saat tim kami sedang melakukan verifikasi data anda')</script>";
-    // echo "<script>location='index.php?Page=dashboard'</script>";
     echo "<script>location='login.php'</script>";
 }
 
 ?>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
@@ -188,6 +222,15 @@ if (isset($_POST['submit'])) {
                 textToShow = "Deposito Bagi Hasil 0,8% Per bulan";
             }
             $('#selectedText').text(textToShow);
+        });
+        $('#confirm_password').change(function() {
+            var pass = $('#password').val();
+            var confirmPass = $('#confirm_password').val();
+            var text = "";
+            if (pass != confirmPass) {
+                var text = "Password tidak sama";
+            }
+            $('#text_pass').text(text);
         });
     });
 </script>

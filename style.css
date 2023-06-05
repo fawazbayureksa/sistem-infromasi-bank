@@ -6,3 +6,7 @@ body {
 .bg-F48020 {
     background-color: #F48020 !important;
 }
+
+#sidebar {
+    transition: 0.5 all ease-in-out;
+}

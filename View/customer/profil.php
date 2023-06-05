@@ -2,22 +2,16 @@
 
 include './koneksi.php';
 
+$id = isset($_GET['id']) ? $_GET['id'] : $_SESSION['admin']['id'];
 
-$ids = $_SESSION['admin']['id'];
-$id = isset($_GET['id']) ? $_GET['id'] : null;
+$query = "SELECT * FROM customers WHERE id ='$id'";
 
-$query = '';
-
-if (isset($id)) {
-    $query = "SELECT * FROM customers WHERE id ='$id'";
-} else {
-    $query = "SELECT * FROM customers WHERE id ='$ids'";
-}
 
 $data = mysqli_query($db, $query);
 
 $datas = mysqli_fetch_assoc($data);
 
+// print_r($datas);
 ?>
 
 <div>

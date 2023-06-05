@@ -1,10 +1,11 @@
 <?php
-print_r($_SESSION['admin']);
+// print_r($_SESSION['admin']);
+
 ?>
 
 <div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-primary">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-primary" id="sidebar">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <img src="./styles/images/logo.png" width="auto" height="80px" alt="" />
@@ -34,10 +35,12 @@ print_r($_SESSION['admin']);
                                 <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Informasi Profil</span></a>
                         </li>
                     <?php } ?>
-                    <li>
-                        <a href="index.php?Page=customers" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Daftar Nasabah</span></a>
-                    </li>
+                    <?php if ($_SESSION['admin']['is_type'] == 0) { ?>
+                        <li>
+                            <a href="index.php?Page=customers" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Daftar Nasabah</span></a>
+                        </li>
+                    <?php } ?>
                     <?php if ($_SESSION['admin']['is_type'] != 0) { ?>
 
                         <li>

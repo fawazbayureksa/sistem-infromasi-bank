@@ -59,7 +59,10 @@ session_start();
 include 'koneksi.php';
 
 if (isset($_POST['login'])) {
-    $query = mysqli_query($db, "SELECT * FROM users WHERE email='$_POST[user]' and password='$_POST[pass]'");
+
+    $pass = sha1($_POST['pass']);
+
+    $query = mysqli_query($db, "SELECT * FROM users WHERE email='$_POST[user]' and password='$pass'");
     $cek = mysqli_num_rows($query);
 
     if ($cek == 1) {

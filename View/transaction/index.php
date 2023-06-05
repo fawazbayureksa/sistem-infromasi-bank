@@ -26,7 +26,7 @@ include './koneksi.php';
                 <input type="date" class="form-control" id="endDate" name="endDate">
             </div>
             <div class="col-md-2 align-self-center">
-                <button type="submit" class="btn btn-primary" name="cari">Cari</button>
+                <button type="submit" class="btn btn-primary" id="cari" name="cari">Cari</button>
             </div>
         </div>
     </form>
@@ -35,7 +35,6 @@ include './koneksi.php';
             <tr>
                 <th>No</th>
                 <th>Tanggal</th>
-                <!-- <th>Nama</th> -->
                 <th>Nama</th>
                 <th>No Rekening</th>
                 <th>Keterangan</th>
@@ -45,21 +44,33 @@ include './koneksi.php';
         <tbody>
             <?php
 
+            $id = $_SESSION['admin']['nik'];
+
             $no = 1;
+            if ($_SESSION['admin']['is_type'] == 0) {
+                if (isset($_POST['cari'])) {
+                    $start = $_POST['startDate'];
+                    $end = $_POST['endDate'];
+                    $name = $_POST['nama'];
+                    $number = $_POST['no_rek'];
 
-
-            if (isset($_POST['cari'])) {
-                // $start =  date('Y-m-d H:i:s', strtotime($_POST['startDate'] . ' 00:00:00'));
-                // $end = date('Y-m-d H:i:s', strtotime($_POST['endDate'] . ' 00:00:00'));
-                $start = $_POST['startDate'];
-                $end = $_POST['endDate'];
-                $name = $_POST['nama'];
-                $number = $_POST['no_rek'];
-
-                echo "Data berhasil difilter dengan: $name $start $end ";
-                $query = mysqli_query($db, "SELECT * FROM transactions JOIN customers ON transactions.nik = customers.nik WHERE time_transaction BETWEEN '$start' AND '$end' OR customers.full_name ='$name' OR customers.account_number = '$number' ");
+                    echo "Data berhasil difilter dengan: $name $start $end ";
+                    $query = mysqli_query($db, "SELECT * FROM transactions JOIN customers ON transactions.nik = customers.nik WHERE time_transaction BETWEEN '$start' AND '$end' OR customers.full_name ='$name' OR customers.account_number = '$number' ");
+                } else {
+                    $query = mysqli_query($db, "SELECT * FROM transactions JOIN customers ON transactions.nik = customers.nik");
+                }
             } else {
-                $query = mysqli_query($db, "SELECT * FROM transactions JOIN customers ON transactions.nik = customers.nik");
+                if (isset($_POST['cari'])) {
+                    $start = $_POST['startDate'];
+                    $end = $_POST['endDate'];
+                    $name = $_POST['nama'];
+                    $number = $_POST['no_rek'];
+
+                    echo "Data berhasil difilter dengan: $name $start $end ";
+                    $query = mysqli_query($db, "SELECT * FROM transactions JOIN customers ON transactions.nik = customers.nik WHERE  transactions.nik='$id' AND time_transaction BETWEEN '$start' AND '$end' OR customers.full_name ='$name' OR customers.account_number = '$number'   ");
+                } else {
+                    $query = mysqli_query($db, "SELECT * FROM transactions JOIN customers ON transactions.nik = customers.nik WHERE transactions.nik='$id'");
+                }
             }
 
             while ($data = mysqli_fetch_assoc($query)) {
@@ -75,4 +86,17 @@ include './koneksi.php';
             <?php } ?>
         </tbody>
     </table>
+    <div>
+        <a href="" id="cetak" onclick="" class="btn btn-secondary">Cetak</a>
+    </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#cetak').click(function() {
+            $("#sidebar").css("display", "none");
+            $("#cari").css("display", "none");
+            $("#cetak").css("display", "none");
+            window.print();
+        });
+    });
+</script>
